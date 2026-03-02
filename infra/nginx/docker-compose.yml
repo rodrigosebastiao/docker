@@ -1,0 +1,30 @@
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      # - ./conf.d:/etc/nginx/conf.d
+      # - ./certbot/www:/var/www/certbot
+      # - ./certbot/conf:/etc/letsencrypt
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./certbot:/etc/letsencrypt
+    networks:
+      - web
+
+  strapi-names:
+    build: ./strapi-names
+    networks:
+      - internal
+
+  strapi-stocks:
+    build: ./strapi-stocks
+    networks:
+      - internal
+
+networks:
+  web:
+    external: true
