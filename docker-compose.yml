@@ -31,12 +31,12 @@ services:
       - internal
 
   strapi-names:
-    build: ../../strapi-names
+    build: ../strapi-names
     networks:
       - internal
 
   strapi-stocks:
-    build: ../../strapi-stocks
+    build: ../strapi-stocks
     networks:
       - internal
 
