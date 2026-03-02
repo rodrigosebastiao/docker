@@ -16,6 +16,20 @@ services:
       - web
       - internal
 
+  postgres:
+    image: postgres:17
+    container_name: postgres
+    environment:
+      POSTGRES_DB: strapi
+      POSTGRES_USER: strapi_db_user
+      POSTGRES_PASSWORD: "!Asder2312"
+    # ports:
+    #   - "5432:5432" # Expose external
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - internal
+
   strapi-names:
     build: ./strapi-names
     networks:
@@ -26,7 +40,7 @@ services:
     networks:
       - internal
 
-  networks:
-    web:
-      external: true
-    internal:
+networks:
+  web:
+    external: true
+  internal:
