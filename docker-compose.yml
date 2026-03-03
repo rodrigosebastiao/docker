@@ -33,13 +33,13 @@ services:
       - internal
 
   names-backend:
-    profiles: [ "apps" ] # Group to select when compose, ex: compose -d apps
+    profiles: [ "apps" ] # Group to select in compose start
     build: ../names-backend
     networks:
       - internal
 
   stocks-backend:
-    profiles: [ "apps" ] # Group to select when compose, ex: compose -d apps
+    profiles: [ "apps" ] # Group to select in compose start
     build: ../stocks-backend
     networks:
       - internal
