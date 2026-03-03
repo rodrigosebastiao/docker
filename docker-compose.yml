@@ -1,6 +1,6 @@
 services:
   nginx:
-    profiles: [ "infra" ]
+    profiles: [ "infra" ] # Group to select in compose start
     image: nginx:latest
     container_name: nginx
     restart: unless-stopped
