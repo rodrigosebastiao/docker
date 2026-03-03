@@ -1,8 +1,8 @@
 services:
   nginx:
-    profiles: [ "infra" ] # Select this group with docker compose
     image: nginx:latest
     container_name: nginx
+    profiles: [ "infra" ] # Select this group with docker compose
     restart: unless-stopped
     ports:
       - "80:80"
@@ -18,8 +18,8 @@ services:
       - internal
 
   postgres:
-    profiles: [ "infra" ] # Select this group with docker compose
     image: postgres:17
+    profiles: [ "infra" ] # Select this group with docker compose
     container_name: postgres
     environment:
       POSTGRES_DB: strapi
@@ -33,14 +33,14 @@ services:
       - internal
 
   names-backend:
-    profiles: [ "apps" ] # Select this group with docker compose
     build: ../names-backend
+    profiles: [ "apps" ] # Select this group with docker compose
     networks:
       - internal
 
   stocks-backend:
-    profiles: [ "apps" ] # Select this group with docker compose
     build: ../stocks-backend
+    profiles: [ "apps" ] # Select this group with docker compose
     networks:
       - internal
 
