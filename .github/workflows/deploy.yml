@@ -1,0 +1,22 @@
+name: Deploy to Oracle VM
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST_ORACLE_143 }}
+          username: deploy
+          key: ${{ secrets.SSH_ORACLE_143 }}
+          script: |
+            cd ~/docker
+            git pull origin main
+            docker compose up -d --build

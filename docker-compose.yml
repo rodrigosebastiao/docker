@@ -1,5 +1,6 @@
 services:
   nginx:
+    profiles: [ "infra" ]
     image: nginx:latest
     container_name: nginx
     restart: unless-stopped
@@ -17,6 +18,7 @@ services:
       - internal
 
   postgres:
+    profiles: [ "infra" ]
     image: postgres:17
     container_name: postgres
     environment:
@@ -31,11 +33,13 @@ services:
       - internal
 
   names-backend:
+    profiles: [ "apps" ] # Group to select when compose, ex: compose -d apps
     build: ../names-backend
     networks:
       - internal
 
   stocks-backend:
+    profiles: [ "apps" ] # Group to select when compose, ex: compose -d apps
     build: ../stocks-backend
     networks:
       - internal
