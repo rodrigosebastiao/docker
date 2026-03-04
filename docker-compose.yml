@@ -14,41 +14,40 @@ services:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./certbot:/etc/letsencrypt
     networks:
-      - web
+      - web-aps
       - internal
-
   postgres:
+    restart: unless-stopped
+    env_file: .env
     image: postgres:17
-    profiles: [ "infra" ] # Select this group with docker compose
-    container_name: postgres
+    container_name: postgres17
     environment:
       POSTGRES_DB: strapi
       POSTGRES_USER: strapi_db_user
       POSTGRES_PASSWORD: "!Asder2312"
     # ports:
     #   - "5432:5432" # Expose external
-    volumes:
-      - pgdata:/var/lib/postgresql/data
+    # volumes:
+    #   - pgdata:/var/lib/postgresql/data
     networks:
       - internal
+  #   names-backend:
+  #     build: ../names-backend
+  #     profiles: [ "apps" ] # Select this group with docker compose
+  #     networks:
+  #       - internal
 
-  names-backend:
-    build: ../names-backend
-    profiles: [ "apps" ] # Select this group with docker compose
-    networks:
-      - internal
+  #   stocks-backend:
+  #     build: ../stocks-backend
+  #     profiles: [ "apps" ] # Select this group with docker compose
+  #     networks:
+  #       - internal
 
-  stocks-backend:
-    build: ../stocks-backend
-    profiles: [ "apps" ] # Select this group with docker compose
-    networks:
-      - internal
-
-networks:
-  web:
-    external: true
-  internal:
+  # networks:
+  #   web:
+  #     external: true
+  #   internal:
 
 
-volumes:
-  pgdata:
+  # volumes:
+  #   pgdata:
