@@ -31,14 +31,11 @@ services:
     #   - pgdata:/var/lib/postgresql/data
     networks:
       - web-apps
-      - internal
 
 ## Create networks
 networks:
   web-apps:
     external: true
-  internal:
-    name: internal
     driver: bridge
   #   names-backend:
   #     build: ../names-backend
