@@ -30,7 +30,16 @@ services:
     # volumes:
     #   - pgdata:/var/lib/postgresql/data
     networks:
+      ## Use the network
       - internal
+
+## Create networks
+networks:
+  web-apps:
+    name: web-apps
+  internal:
+    name: internal
+    driver: bridge
   #   names-backend:
   #     build: ../names-backend
   #     profiles: [ "apps" ] # Select this group with docker compose
