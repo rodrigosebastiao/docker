@@ -15,7 +15,6 @@ services:
       - ./certbot:/etc/letsencrypt
     networks:
       - web-apps
-      - internal
   postgres:
     restart: unless-stopped
     # env_file: .env
@@ -36,7 +35,6 @@ services:
 networks:
   web-apps:
     external: true
-    driver: bridge
   #   names-backend:
   #     build: ../names-backend
   #     profiles: [ "apps" ] # Select this group with docker compose
