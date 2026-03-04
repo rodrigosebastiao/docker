@@ -36,7 +36,7 @@ services:
 ## Create networks
 networks:
   web-apps:
-    name: web-apps
+    external: true
   internal:
     name: internal
     driver: bridge
