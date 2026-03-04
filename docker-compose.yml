@@ -14,7 +14,7 @@ services:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./certbot:/etc/letsencrypt
     networks:
-      - web-aps
+      - web-apps
       - internal
   postgres:
     restart: unless-stopped
@@ -30,7 +30,7 @@ services:
     # volumes:
     #   - pgdata:/var/lib/postgresql/data
     networks:
-      ## Use the network
+      - web-apps
       - internal
 
 ## Create networks
