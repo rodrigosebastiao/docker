@@ -1,6 +1,5 @@
 services:
   nginx:
-    profiles: [ "infra" ] # Select this group with docker compose
     image: nginx:latest
     container_name: nginx
     restart: unless-stopped
@@ -16,13 +15,12 @@ services:
     networks:
       - web-apps
   postgres:
-    profiles: [ "infra" ]
     restart: unless-stopped
     # env_file: .env
     image: postgres:17
     container_name: postgres17
     environment:
-      POSTGRES_DB: strapi
+      POSTGRES_DB: postgres
       POSTGRES_USER: strapi_db_user
       POSTGRES_PASSWORD: "!Asder2312"
     # ports:
