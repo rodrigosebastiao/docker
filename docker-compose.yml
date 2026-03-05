@@ -10,8 +10,8 @@ services:
     #   # - ./conf.d:/etc/nginx/conf.d
     #   # - ./certbot/www:/var/www/certbot
     #   # - ./certbot/conf:/etc/letsencrypt
-    #   - ./nginx/conf.d:/etc/nginx/conf.d
-    #   - ./certbot:/etc/letsencrypt
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./certbot:/etc/letsencrypt
     networks:
       - web-apps
   postgres:
