@@ -6,12 +6,12 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    # volumes:
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./certbot:/etc/letsencrypt
     #   # - ./conf.d:/etc/nginx/conf.d
     #   # - ./certbot/www:/var/www/certbot
     #   # - ./certbot/conf:/etc/letsencrypt
-      - ./nginx/conf.d:/etc/nginx/conf.d
-      - ./certbot:/etc/letsencrypt
     networks:
       - web-apps
   postgres:
@@ -40,19 +40,10 @@ networks:
   #     build: ../names-backend
   #     profiles: [ "apps" ] # Select this group with docker compose
   #     networks:
-  #       - internal
+  #       - web-apps
 
   #   stocks-backend:
   #     build: ../stocks-backend
   #     profiles: [ "apps" ] # Select this group with docker compose
   #     networks:
-  #       - internal
-
-  # networks:
-  #   web:
-  #     external: true
-  #   internal:
-
-
-  # volumes:
-  #   pgdata:
+  #       - web-apps
