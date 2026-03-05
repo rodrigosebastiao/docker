@@ -34,7 +34,9 @@ services:
 ## Create networks
 networks:
   web-apps:
+    name: web-apps
     external: true
+    driver: bridge
   #   names-backend:
   #     build: ../names-backend
   #     profiles: [ "apps" ] # Select this group with docker compose
