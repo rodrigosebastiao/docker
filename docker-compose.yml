@@ -20,7 +20,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./traefik/acme.json:/acme.json
     networks:
-      name: web-apps
+      - web-apps
 
   postgres:
     image: postgres:17
@@ -37,6 +37,7 @@ services:
 
 networks:
   web-apps:
+    name: web-apps
 
 volumes:
   pgdata:
