@@ -36,7 +36,9 @@ services:
 
 networks:
   web-apps:
+    name: web-apps
     external: true
+
 
 volumes:
   pgdata:
