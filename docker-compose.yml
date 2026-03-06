@@ -12,7 +12,7 @@ services:
       - --entrypoints.web.address=:80
       - --entrypoints.websecure.address=:443
       - --certificatesresolvers.letsencrypt.acme.httpchallenge=true
-      - --certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web-apps
+      - --certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web
       - --certificatesresolvers.letsencrypt.acme.email=rodrigodanielss@gmail.com
       - --certificatesresolvers.letsencrypt.acme.storage=/acme.json
     ports:
@@ -49,10 +49,11 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:
-      - web-apps
+      - internal
 
 networks:
   web-apps:
+  internal:
 
 volumes:
   pgdata:
