@@ -33,13 +33,10 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:
-      - internal
+      - web-apps
 
 networks:
   web-apps:
-    external: true
-  internal:
-    driver: bridge
 
 volumes:
   pgdata:
