@@ -24,20 +24,6 @@ services:
     networks:
       - web-apps
 
-  names-backend:
-    image: strapi:latest
-    container_name: names-backend
-    restart: always
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.names.rule=Host(`api.descobrirnomes.com.br`)"
-      - "traefik.http.routers.names.entrypoints=websecure"
-      - "traefik.http.routers.names.tls.certresolver=letsencrypt"
-      - "traefik.http.services.names.loadbalancer.server.port=1337"
-    networks:
-      - web-apps
-      - internal
-
   postgres:
     image: postgres:17
     container_name: postgres17
