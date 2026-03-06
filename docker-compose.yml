@@ -1,60 +1,64 @@
+version: "3.9"
+
 services:
-  nginx:
-    image: nginx:latest
-    container_name: nginx
-    restart: unless-stopped
+
+  traefik:
+    image: traefik:v3
+    container_name: traefik
+    restart: always
+    command:
+      - --providers.docker
+      - --providers.docker.exposedbydefault=false
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --certificatesresolvers.letsencrypt.acme.httpchallenge=true
+      - --certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web-apps
+      - --certificatesresolvers.letsencrypt.acme.email=rodrigodanielss@gmail.com
+      - --certificatesresolvers.letsencrypt.acme.storage=/acme.json
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
-      # - ./nginx/upstream:/etc/nginx/upstream
-      - ./certbot:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
-    networks:
-      - web-apps
-  # certbot:
-  #   image: certbot/certbot
-  #   volumes:
-  #     - ./certbot:/etc/letsencrypt
-  #     - ./certbot:/var/www/certbot
-  #   entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
-  certbot:
-    image: certbot/certbot
-    restart: always
-    volumes:
-      - ./letsencrypt:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
-    entrypoint: >
-      sh -c "trap exit TERM;
-      while :;
-      do
-        certbot renew;
-        sleep 12h;
-      done"
-  
-  postgres:
-    restart: unless-stopped
-    # env_file: .env
-    image: postgres:17
-    container_name: postgres17
-    environment:
-      POSTGRES_DB: postgres
-      POSTGRES_USER: strapi_db_user
-      POSTGRES_PASSWORD: "!Asder2312"
-    # ports:
-    #   - "5432:5432" # Expose external
-    # volumes:
-    #   - pgdata:/var/lib/postgresql/data
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik/acme.json:/acme.json
     networks:
       - web-apps
 
-## Create networks
+  names-backend:
+    image: strapi:latest
+    container_name: names-backend
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.names.rule=Host(`api.descobrirnomes.com.br`)"
+      - "traefik.http.routers.names.entrypoints=websecure"
+      - "traefik.http.routers.names.tls.certresolver=letsencrypt"
+      - "traefik.http.services.names.loadbalancer.server.port=1337"
+    networks:
+      - web-apps
+      - internal
+
+  postgres:
+    image: postgres:17
+    container_name: postgres17
+    restart: always
+    environment:
+      POSTGRES_DB: strapi
+      POSTGRES_USER: strapi_db_user
+      POSTGRES_PASSWORD: "!Asder2312"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - web-apps
+
 networks:
-  web-apps:
-    name: web-apps
-    external: true
-    driver: bridge
+  web:
+  internal:
+
+volumes:
+  pgdata:
+
+
   #   names-backend:
   #     build: ../names-backend
   #     profiles: [ "apps" ] # Select this group with docker compose
