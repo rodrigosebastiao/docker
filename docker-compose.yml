@@ -52,8 +52,7 @@ services:
       - web-apps
 
 networks:
-  web:
-  internal:
+  web-apps:
 
 volumes:
   pgdata:
