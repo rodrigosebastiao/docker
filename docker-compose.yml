@@ -39,8 +39,7 @@ networks:
   web-apps:
     external: true
   internal:
-  driver: 
-    - bridge
+    driver: bridge
 
 volumes:
   pgdata:
