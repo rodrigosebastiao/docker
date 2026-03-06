@@ -1,5 +1,3 @@
-version: "3.9"
-
 services:
 
   traefik:
@@ -39,7 +37,10 @@ services:
 
 networks:
   web-apps:
+    external: true
   internal:
+  driver: 
+    - bridge
 
 volumes:
   pgdata:
