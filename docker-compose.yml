@@ -35,7 +35,7 @@ services:
       - web-apps
 
 networks:
-  rede-geral:
+  web-apps:
     external: true
 
 volumes:
