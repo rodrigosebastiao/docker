@@ -35,9 +35,8 @@ services:
       - web-apps
 
 networks:
-  web-apps:
-    name: web-apps
-
+  rede-geral:
+    external: true
 
 volumes:
   pgdata:
