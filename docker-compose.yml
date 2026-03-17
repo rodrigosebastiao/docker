@@ -15,6 +15,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
+      - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./traefik/acme.json:/acme.json
@@ -25,10 +26,12 @@ services:
     image: postgres:17
     container_name: postgres17
     restart: always
+    ports: 
+      - "5432:5432"
     environment:
       POSTGRES_DB: strapi
       POSTGRES_USER: strapi_db_user
-      POSTGRES_PASSWORD: "!MyPassword2312"
+      POSTGRES_PASSWORD: "!Asder2312"
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:
