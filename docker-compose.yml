@@ -29,9 +29,9 @@ services:
     ports: 
       - "5432:5432"
     environment:
-      POSTGRES_DB: strapi
-      POSTGRES_USER: strapi_db_user
-      POSTGRES_PASSWORD: "!Asder2312"
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "MyPass"
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:
@@ -39,7 +39,7 @@ services:
 
 networks:
   web-apps:
-    external: true
+    driver: bridge
 
 volumes:
   pgdata:
