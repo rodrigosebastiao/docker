@@ -45,16 +45,4 @@ networks:
 
 volumes:
   pgdata:
-
-
-  #   names-backend:
-  #     build: ../names-backend
-  #     profiles: [ "apps" ] # Select this group with docker compose
-  #     networks:
-  #       - web-apps
-
-  #   stocks-backend:
-  #     build: ../stocks-backend
-  #     profiles: [ "apps" ] # Select this group with docker compose
-  #     networks:
-  #       - web-apps
+  
