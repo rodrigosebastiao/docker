@@ -40,6 +40,7 @@ services:
 
 networks:
   web-apps:
+    name: web-apps
     driver: bridge
 
 volumes:
